@@ -13,14 +13,14 @@ This library supports [.NET 6 Minimal APIs](https://learn.microsoft.com/en-us/as
 // Setup WebApp builder
 var builder = WebApplication.CreateBuilder(args);
 
-var myAuthOptions = new EventHandlerAuthOptions(signiFlowSecret: "myEventHandlerSecret"); /// Your secret as set up in your business config in SigniFlow
-builder.Services.SetupEventHandler<MyEventHandlerImpl>(myAuthOptions); // You'll need to implement your own IEventHandler
+var myAuthOptions = new SmsHandlerAuthOptions(builder.Configuration["SmsHandler:Secret"]); /// Your secret as set up in your business config in SigniFlow
+builder.Services.AddSmsEventHandlerApi<QIIBSmsHandlerImpl>(authOptions); // You'll need to implement your own IEventHandler
 
 // Build WebApp
 var app = builder.Build();
 
 // Register event handler API
-app.UseEventHandler("/path/to/receiver");
+app.UseSmsEventHandlerApi("/api/SmsHandler/Receiver");
 
 // Run WebApp
 app.Run();
