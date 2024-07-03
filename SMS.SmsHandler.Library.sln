@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigniFlow.SMSHandler", "SigniFlow.SMSHandler\SigniFlow.SMSHandler.csproj", "{0ADC9532-3960-424F-BDD9-6DFA780398C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigniFlow.SMSHandler.Tests", "SigniFlow.SMSHandler.Tests\SigniFlow.SMSHandler.Tests.csproj", "{205CB5F0-D1E4-40A5-8642-0A2C4F74C16E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0ADC9532-3960-424F-BDD9-6DFA780398C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ADC9532-3960-424F-BDD9-6DFA780398C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ADC9532-3960-424F-BDD9-6DFA780398C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ADC9532-3960-424F-BDD9-6DFA780398C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{205CB5F0-D1E4-40A5-8642-0A2C4F74C16E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205CB5F0-D1E4-40A5-8642-0A2C4F74C16E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205CB5F0-D1E4-40A5-8642-0A2C4F74C16E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205CB5F0-D1E4-40A5-8642-0A2C4F74C16E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
