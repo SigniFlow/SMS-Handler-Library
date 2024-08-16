@@ -52,7 +52,7 @@ public static class SmsEventHandlerApiExtensions
         
         var form = await ctx.Request.ReadFormAsync();
         var eventDate = DateTime.TryParse(form["eventDate"], out var date) ? date : DateTime.Now;
-        var smsEvent = new SmsEvent(form["SmsSecret"],form["Number"],form["EventType"],form["Message"],eventDate.ToString());
+        var smsEvent = new SmsEvent(form["SmsSecret"],form["Number"],form["EventType"],form["AdditionalData"],eventDate.ToString(),form["ClientID"]);
         return await SmsHandlerAPI.HandleSms(eventHandler, smsEvent, authOptions);
     }
 }

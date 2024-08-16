@@ -22,7 +22,7 @@ public class SmsEventDelegatorTests
         
         var authOptions = new SmsHandlerAuthOptions("Itookanarrowtotheknee");
         
-        var smsEvent = new SmsEvent("Itookanarrowtotheknee","092847937222","Send OTP", "Your OTP is 12345",DateTime.Now.ToString());
+        var smsEvent = new SmsEvent("Itookanarrowtotheknee","092847937222","Send OTP", "Your OTP is 12345",DateTime.Now.ToString(),"1234");
 
         _eventDelegator = SmsEventDelegatorFactory.GetSmsEventDelegator(smsEvent, _eventHandler.Object, authOptions);
     }

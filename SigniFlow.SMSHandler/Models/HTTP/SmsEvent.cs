@@ -9,13 +9,15 @@ public class SmsEvent
     public string EventType { get; set; }
     public string AdditionalData { get; set; }
     public string EventDate { get; set; }
-    
-    public SmsEvent(string smsSecret, string number, string eventType, string additionalData, string eventDate)
+    public string ClientId { get; set; }
+
+    public SmsEvent(string smsSecret, string number, string eventType, string additionalData, string eventDate, string clientId)
     {
         SmsSecret = smsSecret;
         Number = number;
         EventType = eventType;
         AdditionalData = additionalData;
         EventDate = eventDate;
+        ClientId = clientId;
     }
 }
