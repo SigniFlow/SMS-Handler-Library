@@ -12,17 +12,18 @@ namespace SigniFlow.SMSHandler.Tests;
 [ExcludeFromCodeCoverage]
 public class SmsEventDelegatorTests
 {
-    private Mock<ISmsEventHandler> _eventHandler;
+    private Mock<ISmsHandler> _eventHandler;
     private SmsEventDelegator _eventDelegator;
-    
+
     [SetUp]
     public void Setup()
     {
-        _eventHandler = new Mock<ISmsEventHandler>();
-        
+        _eventHandler = new Mock<ISmsHandler>();
+
         var authOptions = new SmsHandlerAuthOptions("Itookanarrowtotheknee");
-        
-        var smsEvent = new SmsEvent("Itookanarrowtotheknee","092847937222","Send OTP", "Your OTP is 12345",DateTime.Now.ToString(),"1234");
+
+        var smsEvent = new SmsEvent("Itookanarrowtotheknee", "092847937222", "Send OTP", "Some data Here",
+            DateTime.Now.ToString(), "ClientID", "1234", "Your OTP is 12345");
 
         _eventDelegator = SmsEventDelegatorFactory.GetSmsEventDelegator(smsEvent, _eventHandler.Object, authOptions);
     }
@@ -32,11 +33,11 @@ public class SmsEventDelegatorTests
     {
         Assert.NotNull(_eventDelegator.SmsEventType);
     }
-    
+
     [Test(Description = "Checks that the constructor sets the event handler property correctly")]
     public void Constructor_SetsEventHandlerProperty()
     {
-        Assert.NotNull(this._eventDelegator.SmsEventHandler);
+        Assert.NotNull(this._eventDelegator.SmsHandler);
     }
 
     private static IEnumerable<CorrectEventHandlerParameter> EventHandlerMethodTestCases
@@ -60,7 +61,7 @@ public class SmsEventDelegatorTests
             };
         }
     }
-    
+
     [Test]
     [TestCaseSource(nameof(EventHandlerMethodTestCases))]
     public async Task CallsCorrectEventHandler(CorrectEventHandlerParameter parameter)
@@ -77,11 +78,11 @@ public class SmsEventDelegatorTests
         _eventDelegator.SmsEventType = invalidSmsEventType;
         Assert.ThrowsAsync<InvalidSmsEventTypeException>(async () => await _eventDelegator.HandleSmsEvent());
     }
-    
+
     public class CorrectEventHandlerParameter
     {
-        public Expression<Action<ISmsEventHandler>> MethodToCheck { get; set; }
-        
+        public Expression<Action<ISmsHandler>> MethodToCheck { get; set; }
+
         public SmsEventType EventType { get; set; }
     }
 }

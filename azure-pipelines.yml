@@ -1,0 +1,41 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: "DotNet Build"
+  inputs:
+    command: 'build'
+    projects: '**/SigniFlow.SMSHandler.csproj'
+
+- task: mirror-git-repository-vsts-task@1
+  displayName: Mirror to GitHub
+  inputs:
+    sourceGitRepositoryUri: 'https://dev.azure.com/SigniFlow/SigniFlow%20SMS%20Handler%20Library/_git/SigniFlow%20SMS%20Handler%20Library'
+    sourceGitRepositoryPersonalAccessToken: '$(devops-token)'
+    destinationGitRepositoryUri: 'https://github.com/SigniFlow/SMS-Handler-Library'
+    destinationGitRepositoryPersonalAccessToken: '$(github-token)'
+
+- task: NuGetCommand@2
+  displayName: 'Nuget Pack'
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/SigniFlow.SMSHandler.csproj'
+    versioningScheme: 'off'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: Nuget.org
+    
+

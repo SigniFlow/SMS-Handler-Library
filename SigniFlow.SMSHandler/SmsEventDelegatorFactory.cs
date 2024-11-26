@@ -6,7 +6,8 @@ namespace SigniFlow.SMSHandler;
 
 public static class SmsEventDelegatorFactory
 {
-    public static SmsEventDelegator GetSmsEventDelegator(SmsEvent smsEvent, ISmsEventHandler smsEventHandler, SmsHandlerAuthOptions smsHandlerAuthOptions)
+    public static SmsEventDelegator GetSmsEventDelegator(SmsEvent smsEvent, ISmsHandler smsHandler,
+        SmsHandlerAuthOptions smsHandlerAuthOptions)
     {
         if (!HasValidAuth(smsEvent, smsHandlerAuthOptions))
         {
@@ -14,18 +15,18 @@ public static class SmsEventDelegatorFactory
         }
 
         var eventType = ConvertToSMSEventType(smsEvent.EventType);
-        smsEventHandler.SMSEvent = smsEvent;
-        return new SmsEventDelegator(smsEventHandler, eventType);
+        smsHandler.Event = smsEvent;
+        return new SmsEventDelegator(smsHandler, eventType);
     }
 
     private static bool HasValidAuth(SmsEvent smsEvent, SmsHandlerAuthOptions smsHandlerAuthOptions)
     {
-        return smsEvent.SmsSecret == smsHandlerAuthOptions.SmsEventSecret;
+        return smsEvent.Secret == smsHandlerAuthOptions.Secret;
     }
 
     public static SmsEventType ConvertToSMSEventType(string smsEvent)
     {
-        var typeToTest = smsEvent?? string.Empty;
+        var typeToTest = smsEvent ?? string.Empty;
         return typeToTest.ToLower() switch
         {
             "send otp" => SmsEventType.SmsOtp,
@@ -34,5 +35,4 @@ public static class SmsEventDelegatorFactory
             _ => SmsEventType.Unknown
         };
     }
-    
 }

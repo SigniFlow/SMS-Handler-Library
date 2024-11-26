@@ -1,11 +1,6 @@
 ﻿namespace SigniFlow.SMSHandler.Models.Configuration;
 
-public class SmsHandlerAuthOptions
+public class SmsHandlerAuthOptions(string secret)
 {
-    public string SmsEventSecret { get; set; }
-    
-    public SmsHandlerAuthOptions(string smsHandlerSecret)
-    {
-        SmsEventSecret = smsHandlerSecret;
-    }
+    public string Secret { get; set; } = secret;
 }

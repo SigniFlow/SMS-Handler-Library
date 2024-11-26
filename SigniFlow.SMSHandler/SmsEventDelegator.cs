@@ -5,25 +5,25 @@ namespace SigniFlow.SMSHandler;
 
 public class SmsEventDelegator
 {
-    public ISmsEventHandler SmsEventHandler { get; set; }
+    public ISmsHandler SmsHandler { get; set; }
     public SmsEventType SmsEventType { get; set; }
-    
-    public SmsEventDelegator(ISmsEventHandler smsEventHandler, SmsEventType smsEventType)
+
+    public SmsEventDelegator(ISmsHandler smsHandler, SmsEventType smsEventType)
     {
-        SmsEventHandler = smsEventHandler;
+        SmsHandler = smsHandler;
         SmsEventType = smsEventType;
     }
-    
+
     /// <exception cref="InvalidSmsEventTypeException"></exception>
     public async Task<SmsEventResult> HandleSmsEvent()
     {
         return SmsEventType switch
         {
-            SmsEventType.SmsOtp => await SmsEventHandler.HandleSmsOtp(),
-            SmsEventType.SmsCreated => await SmsEventHandler.HandleSmsAccountCreated(),
-            SmsEventType.SmsAuthenticate => await SmsEventHandler.HandleSmsAuthenticate(),
-            SmsEventType.Unknown => await SmsEventHandler.HandleSmsUnkown(),
-            _=> throw new InvalidSmsEventTypeException($"Err: Invalid Sms Event Type {SmsEventType}")
+            SmsEventType.SmsOtp => await SmsHandler.HandleSmsOtp(),
+            SmsEventType.SmsCreated => await SmsHandler.HandleSmsAccountCreated(),
+            SmsEventType.SmsAuthenticate => await SmsHandler.HandleSmsAuthenticate(),
+            SmsEventType.Unknown => await SmsHandler.HandleSmsUnkown(),
+            _ => throw new InvalidSmsEventTypeException($"Err: Invalid Sms Event Type {SmsEventType}")
         };
     }
 }
