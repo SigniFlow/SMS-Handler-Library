@@ -10,27 +10,23 @@ steps:
   inputs:
     command: 'build'
     projects: '**/SigniFlow.SMSHandler.csproj'
-
 - task: mirror-git-repository-vsts-task@1
-  displayName: Mirror to GitHub
+  displayName: 'Mirror to GitHub'
   inputs:
     sourceGitRepositoryUri: 'https://dev.azure.com/SigniFlow/SigniFlow%20SMS%20Handler%20Library/_git/SigniFlow%20SMS%20Handler%20Library'
     sourceGitRepositoryPersonalAccessToken: '$(devops-token)'
     destinationGitRepositoryUri: 'https://github.com/SigniFlow/SMS-Handler-Library'
     destinationGitRepositoryPersonalAccessToken: '$(github-token)'
-
-- task: NuGetCommand@2
-  displayName: 'Nuget Pack'
+- task: DotNetCoreCLI@2
+  displayName: 'NuGet Pack'
   inputs:
     command: 'pack'
-    packagesToPack: '**/SigniFlow.SMSHandler.csproj'
+    packagesToPack: '**/SigniFlow.EventHandler.csproj'
     versioningScheme: 'off'
-
 - task: NuGetCommand@2
+  displayName: 'Nuget Push'
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'external'
-    publishFeedCredentials: Nuget.org
-    
-
+    publishFeedCredentials: 'NuGet.org'
