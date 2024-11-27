@@ -21,7 +21,7 @@ steps:
   displayName: 'NuGet Pack'
   inputs:
     command: 'pack'
-    packagesToPack: '**/SigniFlow.EventHandler.csproj'
+    packagesToPack: '**/SigniFlow.SMSHandler.csproj'
     versioningScheme: 'off'
 - task: NuGetCommand@2
   displayName: 'Nuget Push'
