@@ -57,6 +57,7 @@ public class SmsEventDelegatorFactoryTests
     [TestCase("Send OTP", SmsEventType.SmsOtp)]
     [TestCase("Created", SmsEventType.SmsCreated)]
     [TestCase("Authenticate", SmsEventType.SmsAuthenticate)]
+    [TestCase("Check Balance", SmsEventType.SmsCheckBalance)]
     [TestCase("Unknown Event", SmsEventType.Unknown)]
     public void GetSmsDelegator_SmsEventTypeGetCorretEventValue(string testSmsEvent, SmsEventType smsEventType)
     {

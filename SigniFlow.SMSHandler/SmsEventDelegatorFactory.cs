@@ -32,6 +32,7 @@ public static class SmsEventDelegatorFactory
             "send otp" => SmsEventType.SmsOtp,
             "created" => SmsEventType.SmsCreated,
             "authenticate" => SmsEventType.SmsAuthenticate,
+            "check balance" => SmsEventType.SmsCheckBalance,
             _ => SmsEventType.Unknown
         };
     }
