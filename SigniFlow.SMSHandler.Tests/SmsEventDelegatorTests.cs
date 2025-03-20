@@ -59,6 +59,11 @@ public class SmsEventDelegatorTests
                 MethodToCheck = handler => handler.HandleSmsUnkown(),
                 EventType = SmsEventType.Unknown
             };
+            yield return new CorrectEventHandlerParameter
+            {
+                MethodToCheck = handler => handler.HandleSmsGetBalance(),
+                EventType = SmsEventType.SmsCheckBalance
+            };
         }
     }
 

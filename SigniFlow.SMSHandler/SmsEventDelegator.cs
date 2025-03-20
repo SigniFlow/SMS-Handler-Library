@@ -23,6 +23,7 @@ public class SmsEventDelegator
             SmsEventType.SmsCreated => await SmsHandler.HandleSmsAccountCreated(),
             SmsEventType.SmsAuthenticate => await SmsHandler.HandleSmsAuthenticate(),
             SmsEventType.Unknown => await SmsHandler.HandleSmsUnkown(),
+            SmsEventType.SmsCheckBalance => await SmsHandler.HandleSmsGetBalance(),
             _ => throw new InvalidSmsEventTypeException($"Err: Invalid Sms Event Type {SmsEventType}")
         };
     }
@@ -33,5 +34,6 @@ public enum SmsEventType
     SmsOtp,
     SmsCreated,
     SmsAuthenticate,
+    SmsCheckBalance,
     Unknown = -1
 }
