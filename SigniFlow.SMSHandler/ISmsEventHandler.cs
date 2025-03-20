@@ -25,4 +25,9 @@ public interface ISmsHandler
     {
         return await Task.FromResult(new SmsEventResult(true, "Unknown Event"));
     }
+
+    async Task<SmsEventResult> HandleSmsGetBalance()
+    {
+        return await Task.FromResult(SmsEventResult.SuccessfulEvent);
+    }
 }
