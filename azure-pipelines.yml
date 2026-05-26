@@ -26,9 +26,4 @@ steps:
     command: 'pack'
     packagesToPack: '**/SigniFlow.SMSHandler.csproj'
     versioningScheme: 'off'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NuGet.org'
+- script: dotnet nuget push --api-key $(nuget-token) --source NuGet.org '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
