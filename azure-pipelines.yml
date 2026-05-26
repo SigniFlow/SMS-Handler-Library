@@ -17,6 +17,7 @@ steps:
     sourceGitRepositoryPersonalAccessToken: '$(devops-token)'
     destinationGitRepositoryUri: 'https://github.com/SigniFlow/SMS-Handler-Library'
     destinationGitRepositoryPersonalAccessToken: '$(github-token)'
+- task: NuGetToolInstaller@1
 - task: DotNetCoreCLI@2
   displayName: 'NuGet Pack'
   inputs:
