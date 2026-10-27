@@ -42,6 +42,29 @@ public static class SmsHandlerApiExtensions
         app.MapPost(route, Handler);
     }
 
+    /// <summary>
+    /// Creates a POST endpoint that accepts SMS events as JSON and uses the same handlers as the form endpoint.
+    /// </summary>
+    /// <param name="app">The application hosting the endpoint.</param>
+    /// <param name="route">The route at which to receive JSON SMS events.</param>
+    public static void UseSmsEventHandlerJsonApi(this WebApplication app, string route)
+    {
+        app.MapPost(route, JsonHandler);
+    }
+
+    private static async Task<string> JsonHandler([FromServices] ISmsHandler smsHandler,
+        [FromServices] SmsHandlerAuthOptions authOptions, [FromBody] SmsEventJsonRequest request)
+    {
+        var eventDate = DateTime.TryParse(request.EventDate, out var date) ? date : DateTime.Now;
+        var smsEvent = new SmsEvent(request.Secret ?? string.Empty, request.Number ?? string.Empty,
+            request.EventType ?? string.Empty, request.AdditionalData ?? string.Empty, eventDate.ToString(),
+            request.ClientId ?? string.Empty, request.BusinessId ?? string.Empty, request.Message ?? string.Empty)
+        {
+            OtpValue = request.OtpValue ?? string.Empty
+        };
+        return await SmsHandlerApi.HandleSms(smsHandler, smsEvent, authOptions);
+    }
+
     private static async Task<string> Handler([FromServices] ISmsHandler smsHandler,
         [FromServices] SmsHandlerAuthOptions authOptions, HttpContext ctx)
     {
@@ -53,7 +76,10 @@ public static class SmsHandlerApiExtensions
         var form = await ctx.Request.ReadFormAsync();
         var eventDate = DateTime.TryParse(form["eventDate"], out var date) ? date : DateTime.Now;
         var smsEvent = new SmsEvent(form["SmsSecret"], form["Number"], form["EventType"], form["AdditionalData"],
-            eventDate.ToString(), form["ClientID"], form["BussinessID"], form["Message"]);
+            eventDate.ToString(), form["ClientID"], form["BusinessID"], form["Message"])
+        {
+            OtpValue = form["OtpValue"].ToString()
+        };
         return await SmsHandlerApi.HandleSms(smsHandler, smsEvent, authOptions);
     }
 }

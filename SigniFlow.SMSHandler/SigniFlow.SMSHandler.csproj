@@ -6,11 +6,13 @@
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
         <PackageId>SigniFlow.SMSHandler</PackageId>
-        <PackageVersion>1.0.6</PackageVersion>
+        <Version>2.0.0</Version>
+        <PackageVersion>$(Version)</PackageVersion>
+        <PackageReleaseNotes>Added an optional JSON SMS event endpoint and the optional string field OtpValue for both JSON and form requests. Breaking change: clients must rename the request field BussinessID to BusinessID.</PackageReleaseNotes>
         <RepositoryUrl>https://github.com/SigniFlow/SMS-Handler-Library</RepositoryUrl>
         <Authors>SigniFlow</Authors>
         <PackageProjectUrl>https://signiflow.com</PackageProjectUrl>
-        <Copyright>Copyright (c) SigniFlow 2025</Copyright>
+        <Copyright>Copyright (c) SigniFlow 2025-2026</Copyright>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>

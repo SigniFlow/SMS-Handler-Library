@@ -12,6 +12,7 @@ public class SmsEvent
     public string ClientId { get; set; }
     public string BusinessId { get; set; }
     public string Message { get; set; }
+    public string OtpValue { get; set; } = string.Empty;
 
     public SmsEvent(string secret, string number, string eventType, string additionalData, string eventDate,
         string clientId, string businessId, string message)
